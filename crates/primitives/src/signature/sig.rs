@@ -582,23 +582,6 @@ impl<'a> arbitrary::Arbitrary<'a> for Signature {
     }
 }
 
-#[cfg(feature = "arbitrary")]
-impl proptest::arbitrary::Arbitrary for Signature {
-    type Parameters = ();
-    type Strategy = proptest::strategy::FilterMap<
-        <(U256, U256, Parity) as proptest::arbitrary::Arbitrary>::Strategy,
-        fn((U256, U256, Parity)) -> Option<Self>,
-    >;
-
-    fn arbitrary_with((): Self::Parameters) -> Self::Strategy {
-        use proptest::strategy::Strategy;
-        proptest::arbitrary::any::<(U256, U256, Parity)>()
-            .prop_filter_map("invalid signature", |(r, s, parity)| {
-                Self::from_rs_and_parity(r, s, parity).ok()
-            })
-    }
-}
-
 #[cfg(test)]
 #[allow(unused_imports)]
 mod tests {

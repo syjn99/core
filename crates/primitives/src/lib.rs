@@ -117,5 +117,5 @@ pub mod private {
     pub use serde;
 
     #[cfg(feature = "arbitrary")]
-    pub use {arbitrary, derive_arbitrary, proptest, proptest_derive};
+    pub use {arbitrary, derive_arbitrary};
 }

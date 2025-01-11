@@ -7,7 +7,7 @@ use derive_more::{AsRef, Deref};
 /// implement the [`Sealable`] trait to provide define their own hash.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, AsRef, Deref)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[cfg_attr(feature = "arbitrary", derive(proptest_derive::Arbitrary))]
+#[cfg_attr(feature = "arbitrary")]
 pub struct Sealed<T> {
     /// The inner item.
     #[as_ref]

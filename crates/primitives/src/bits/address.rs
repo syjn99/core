@@ -669,28 +669,6 @@ mod tests {
         }
     }
 
-    #[test]
-    #[cfg(all(feature = "rlp", feature = "arbitrary"))]
-    #[cfg_attr(miri, ignore = "doesn't run in isolation and would take too long")]
-    fn create_correctness() {
-        fn create_slow(address: &Address, nonce: u64) -> Address {
-            use alloy_rlp::Encodable;
-
-            let mut out = vec![];
-
-            alloy_rlp::Header { list: true, payload_length: address.length() + nonce.length() }
-                .encode(&mut out);
-            address.encode(&mut out);
-            nonce.encode(&mut out);
-
-            Address::from_word(keccak256(out))
-        }
-
-        proptest::proptest!(|(address: Address, nonce: u64)| {
-            proptest::prop_assert_eq!(address.create(nonce), create_slow(&address, nonce));
-        });
-    }
-
     // https://eips.ethereum.org/EIPS/eip-1014
     #[test]
     fn create2() {
