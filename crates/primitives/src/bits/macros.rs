@@ -645,29 +645,6 @@ macro_rules! impl_arbitrary {
                 <$crate::FixedBytes<$n> as $crate::private::arbitrary::Arbitrary>::size_hint(depth)
             }
         }
-
-        #[cfg_attr(docsrs, doc(cfg(feature = "arbitrary")))]
-        impl $crate::private::proptest::arbitrary::Arbitrary for $t {
-            type Parameters = <$crate::FixedBytes<$n> as $crate::private::proptest::arbitrary::Arbitrary>::Parameters;
-            type Strategy = $crate::private::proptest::strategy::Map<
-                <$crate::FixedBytes<$n> as $crate::private::proptest::arbitrary::Arbitrary>::Strategy,
-                fn($crate::FixedBytes<$n>) -> Self,
-            >;
-
-            #[inline]
-            fn arbitrary() -> Self::Strategy {
-                use $crate::private::proptest::strategy::Strategy;
-                <$crate::FixedBytes<$n> as $crate::private::proptest::arbitrary::Arbitrary>::arbitrary()
-                    .prop_map(Self)
-            }
-
-            #[inline]
-            fn arbitrary_with(args: Self::Parameters) -> Self::Strategy {
-                use $crate::private::proptest::strategy::Strategy;
-                <$crate::FixedBytes<$n> as $crate::private::proptest::arbitrary::Arbitrary>::arbitrary_with(args)
-                    .prop_map(Self)
-            }
-        }
     };
 }
 

@@ -85,8 +85,6 @@ rustc-hash = { workspace = true, optional = true }
 # arbitrary
 arbitrary = { workspace = true, optional = true }
 derive_arbitrary = { workspace = true, optional = true }
-proptest = { workspace = true, optional = true }
-proptest-derive = { workspace = true, optional = true }
 
 # allocative
 allocative = { workspace = true, optional = true }
@@ -111,7 +109,6 @@ std = [
     "indexmap?/std",
     "k256?/std",
     "keccak-asm?/std",
-    "proptest?/std",
     "rand?/std",
     "rustc-hash?/std",
     "serde?/std",
@@ -151,16 +148,6 @@ serde = [
 ]
 
 allocative = ["dep:allocative"]
-arbitrary = [
-    "std",
-    "dep:arbitrary",
-    "dep:derive_arbitrary",
-    "dep:proptest",
-    "dep:proptest-derive",
-    "ruint/arbitrary",
-    "ruint/proptest",
-    "indexmap?/arbitrary",
-]
 postgres = ["std", "dep:postgres-types", "ruint/postgres"]
 
 # `const-hex` compatibility feature for `hex`.

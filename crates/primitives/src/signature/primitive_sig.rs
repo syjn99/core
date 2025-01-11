@@ -312,21 +312,6 @@ impl<'a> arbitrary::Arbitrary<'a> for PrimitiveSignature {
     }
 }
 
-#[cfg(feature = "arbitrary")]
-impl proptest::arbitrary::Arbitrary for PrimitiveSignature {
-    type Parameters = ();
-    type Strategy = proptest::strategy::Map<
-        <(U256, U256, bool) as proptest::arbitrary::Arbitrary>::Strategy,
-        fn((U256, U256, bool)) -> Self,
-    >;
-
-    fn arbitrary_with((): Self::Parameters) -> Self::Strategy {
-        use proptest::strategy::Strategy;
-        proptest::arbitrary::any::<(U256, U256, bool)>()
-            .prop_map(|(r, s, parity)| Self::new(r, s, parity))
-    }
-}
-
 #[cfg(feature = "serde")]
 mod signature_serde {
     use serde::{Deserialize, Deserializer, Serialize};
