@@ -305,13 +305,6 @@ impl PrimitiveSignature {
     }
 }
 
-#[cfg(feature = "arbitrary")]
-impl<'a> arbitrary::Arbitrary<'a> for PrimitiveSignature {
-    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-        Ok(Self::new(u.arbitrary()?, u.arbitrary()?, u.arbitrary()?))
-    }
-}
-
 #[cfg(feature = "serde")]
 mod signature_serde {
     use serde::{Deserialize, Deserializer, Serialize};

@@ -115,7 +115,4 @@ pub mod private {
 
     #[cfg(feature = "serde")]
     pub use serde;
-
-    #[cfg(feature = "arbitrary")]
-    pub use {arbitrary, derive_arbitrary};
 }

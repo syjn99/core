@@ -574,14 +574,6 @@ impl<'de> serde::Deserialize<'de> for Signature {
     }
 }
 
-#[cfg(feature = "arbitrary")]
-impl<'a> arbitrary::Arbitrary<'a> for Signature {
-    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-        Self::from_rs_and_parity(u.arbitrary()?, u.arbitrary()?, u.arbitrary::<Parity>()?)
-            .map_err(|_| arbitrary::Error::IncorrectFormat)
-    }
-}
-
 #[cfg(test)]
 #[allow(unused_imports)]
 mod tests {

@@ -27,7 +27,6 @@ use hex::FromHex;
     IndexMut,
     IntoIterator,
 )]
-#[cfg_attr(feature = "arbitrary", derive(derive_arbitrary::Arbitrary))]
 #[cfg_attr(feature = "allocative", derive(allocative::Allocative))]
 #[repr(transparent)]
 pub struct FixedBytes<const N: usize>(#[into_iterator(owned, ref, ref_mut)] pub [u8; N]);

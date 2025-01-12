@@ -178,7 +178,6 @@ macro_rules! wrap_fixed_bytes {
         $crate::impl_rlp!($name, $n);
         $crate::impl_serde!($name);
         $crate::impl_allocative!($name);
-        $crate::impl_arbitrary!($name, $n);
         $crate::impl_rand!($name);
 
         impl $name {
@@ -621,38 +620,6 @@ macro_rules! impl_serde {
 #[cfg(not(feature = "serde"))]
 macro_rules! impl_serde {
     ($t:ty) => {};
-}
-
-#[doc(hidden)]
-#[macro_export]
-#[cfg(feature = "arbitrary")]
-macro_rules! impl_arbitrary {
-    ($t:ty, $n:literal) => {
-        #[cfg_attr(docsrs, doc(cfg(feature = "arbitrary")))]
-        impl<'a> $crate::private::arbitrary::Arbitrary<'a> for $t {
-            #[inline]
-            fn arbitrary(u: &mut $crate::private::arbitrary::Unstructured<'a>) -> $crate::private::arbitrary::Result<Self> {
-                <$crate::FixedBytes<$n> as $crate::private::arbitrary::Arbitrary>::arbitrary(u).map(Self)
-            }
-
-            #[inline]
-            fn arbitrary_take_rest(u: $crate::private::arbitrary::Unstructured<'a>) -> $crate::private::arbitrary::Result<Self> {
-                <$crate::FixedBytes<$n> as $crate::private::arbitrary::Arbitrary>::arbitrary_take_rest(u).map(Self)
-            }
-
-            #[inline]
-            fn size_hint(depth: usize) -> (usize, Option<usize>) {
-                <$crate::FixedBytes<$n> as $crate::private::arbitrary::Arbitrary>::size_hint(depth)
-            }
-        }
-    };
-}
-
-#[doc(hidden)]
-#[macro_export]
-#[cfg(not(feature = "arbitrary"))]
-macro_rules! impl_arbitrary {
-    ($t:ty, $n:literal) => {};
 }
 
 macro_rules! fixed_bytes_macros {

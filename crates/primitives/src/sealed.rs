@@ -7,7 +7,6 @@ use derive_more::{AsRef, Deref};
 /// implement the [`Sealable`] trait to provide define their own hash.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, AsRef, Deref)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[cfg_attr(feature = "arbitrary")]
 pub struct Sealed<T> {
     /// The inner item.
     #[as_ref]
@@ -115,16 +114,6 @@ where
 {
     fn default() -> Self {
         T::default().seal_slow()
-    }
-}
-
-#[cfg(feature = "arbitrary")]
-impl<'a, T> arbitrary::Arbitrary<'a> for Sealed<T>
-where
-    T: for<'b> arbitrary::Arbitrary<'b> + Sealable,
-{
-    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-        Ok(T::arbitrary(u)?.seal_slow())
     }
 }
 

@@ -341,24 +341,6 @@ impl Bytes {
     }
 }
 
-#[cfg(feature = "arbitrary")]
-impl<'a> arbitrary::Arbitrary<'a> for Bytes {
-    #[inline]
-    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-        u.arbitrary_iter()?.collect::<arbitrary::Result<Vec<u8>>>().map(Into::into)
-    }
-
-    #[inline]
-    fn arbitrary_take_rest(u: arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-        Ok(Self(u.take_rest().to_vec().into()))
-    }
-
-    #[inline]
-    fn size_hint(_depth: usize) -> (usize, Option<usize>) {
-        (0, None)
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

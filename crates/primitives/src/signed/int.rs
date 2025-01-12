@@ -51,7 +51,6 @@ use ruint::{BaseConvertError, Uint};
 /// assert_eq!(I256::MINUS_ONE, I256::unchecked_from(-1));
 /// ```
 #[derive(Clone, Copy, Default, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "arbitrary", derive(derive_arbitrary::Arbitrary))]
 pub struct Signed<const BITS: usize, const LIMBS: usize>(pub(crate) Uint<BITS, LIMBS>);
 
 // formatting

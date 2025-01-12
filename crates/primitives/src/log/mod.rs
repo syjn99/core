@@ -16,7 +16,6 @@ pub fn logs_bloom<'a>(logs: impl IntoIterator<Item = &'a Log>) -> Bloom {
 /// An Ethereum event log object.
 #[derive(Clone, Debug, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[cfg_attr(feature = "arbitrary", derive(derive_arbitrary::Arbitrary))]
 pub struct LogData {
     /// The indexed topic list.
     topics: Vec<B256>,
@@ -115,7 +114,6 @@ impl IntoLogData for LogData {
 
 /// A log consists of an address, and some log data.
 #[derive(Clone, Debug, Default, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "arbitrary", derive(derive_arbitrary::Arbitrary))]
 pub struct Log<T = LogData> {
     /// The address which emitted this log.
     pub address: Address,
